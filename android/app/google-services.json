@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068625919002",
+    "project_id": "playlog-staging-58d94",
+    "storage_bucket": "playlog-staging-58d94.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068625919002:android:2ac9261d7ee47836c865a3",
+        "android_client_info": {
+          "package_name": "com.example.playlog_fix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVplTS8PY6mTB5hQpB6gCZ1dKS_sDSNrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
