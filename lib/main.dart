@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 // 如果你已經用 flutterfire 產生了 lib/firebase_options.dart，保留下面這行；
@@ -9,13 +10,16 @@ import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ✅ 正式做法（已產生 firebase_options.dart）
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  // ❌ 如果還沒產生 firebase_options.dart，請先用這個暫時跑 Android：
-  // await Firebase.initializeApp(); // Android 會讀 android/app/google-services.json
+  // ✅ 跨平台安全初始化
+  // - Web：一定需要 options（走 firebase_options.dart 的 web 常數）
+  // - Android/iOS：可使用原生檔案自動初始化（Android 用 google-services.json、iOS 用 GoogleService-Info.plist）
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.web,
+    );
+  } else {
+    await Firebase.initializeApp();
+  }
 
   runApp(const MyApp());
 }
