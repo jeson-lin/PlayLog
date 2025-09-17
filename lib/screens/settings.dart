@@ -314,7 +314,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             subtitle: const Text('（放置你的連結）'),
           ),
           const SizedBox(height: 12),
-          FilledButton(onPressed: _saveProfile, child: Text(AppLocalizations.of(context)?.saveSettings ?? 'Save Settings')),
+          ElevatedButton(onPressed: _saveProfile, child: Text(AppLocalizations.of(context)?.saveSettings ?? 'Save Settings')),
         ],
       ),
     );

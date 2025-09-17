@@ -129,7 +129,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 onChanged: listening ? null : (v) => setState(() => instrument = v ?? 'piano'),
               ),
               const Spacer(),
-              FilledButton(
+              ElevatedButton(
                 onPressed: _toggle,
                 child: Text(listening ? (AppLocalizations.of(context)?.stop ?? 'Stop') : (AppLocalizations.of(context)?.start ?? 'Start')),
               ),

@@ -98,7 +98,7 @@ class _MetronomeScreenState extends State<MetronomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FilledButton(onPressed: _start, child: const Text('Start')),
+              ElevatedButton(onPressed: _start, child: const Text('Start')),
               const SizedBox(width: 12),
               OutlinedButton(onPressed: _stop, child: const Text('Stop')),
             ],
