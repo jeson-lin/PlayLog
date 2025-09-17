@@ -1,24 +1,42 @@
-// 這是一個暫時檔案，僅用於編譯通過。
-// 請之後執行 flutterfire configure 生成正式檔案。
-class DefaultFirebaseOptions {
-  static const web = FirebaseOptionsPlaceholder();
-}
-
-class FirebaseOptionsPlaceholder {
-  const FirebaseOptionsPlaceholder();
-}
-
-// ---- AUTO-GENERATED STUB FOR WEB (temporary) ----
+// ignore_for_file: constant_identifier_names
 import 'package:firebase_core/firebase_core.dart';
-class _PatchedDefaultFirebaseOptionsWeb {
-  static FirebaseOptions get web => const FirebaseOptions(
-    apiKey: 'DUMMY',
-    appId: 'DUMMY',
-    messagingSenderId: 'DUMMY',
-    projectId: 'DUMMY',
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
+
+class DefaultFirebaseOptions {
+  static FirebaseOptions get currentPlatform {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return android;
+      case TargetPlatform.iOS:
+        return ios;
+      case TargetPlatform.macOS:
+        return macos;
+      case TargetPlatform.windows:
+        return windows;
+      case TargetPlatform.linux:
+        return linux;
+      default:
+        return android;
+    }
+  }
+
+  // 下面的值都是占位用，之後請用 flutterfire 重新產生
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'xxx',
+    appId: '1:xxx:android:xxx',
+    messagingSenderId: 'xxx',
+    projectId: 'xxx',
   );
-}
-// Expose as DefaultFirebaseOptions.web if not present
-extension _WebGetter on DefaultFirebaseOptions {
-  static FirebaseOptions get web => _PatchedDefaultFirebaseOptionsWeb.web;
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'xxx',
+    appId: '1:xxx:ios:xxx',
+    messagingSenderId: 'xxx',
+    projectId: 'xxx',
+    iosBundleId: 'com.example.playlogFix',
+  );
+
+  static const FirebaseOptions macos = ios;
+  static const FirebaseOptions windows = android;
+  static const FirebaseOptions linux = android;
 }

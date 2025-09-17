@@ -69,7 +69,7 @@ class _TunerPageState extends State<TunerPage> {
             FilledButton.icon(
               onPressed: _toggle,
               icon: Icon(_listening ? Icons.stop_circle_outlined : Icons.play_arrow),
-              child: Text(_listening ? '停止偵測' : '開始偵測'),
+              label: Text(_listening ? '停止偵測' : '開始偵測'),
             ),
           ],
         ),

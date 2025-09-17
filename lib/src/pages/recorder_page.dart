@@ -64,7 +64,7 @@ class _RecorderPageState extends State<RecorderPage> {
             FilledButton.icon(
               onPressed: _toggle,
               icon: Icon(_recording ? Icons.stop : Icons.mic),
-              child: Text(_recording ? '停止錄音' : '開始錄音'),
+              label: Text(_recording ? '停止錄音' : '開始錄音'),
             ),
             const SizedBox(height: 12),
             if (_lastPath != null) ...[
@@ -74,7 +74,7 @@ class _RecorderPageState extends State<RecorderPage> {
               FilledButton.icon(
                 onPressed: () => Share.shareXFiles([XFile(_lastPath!)], text: '我的練習錄音'),
                 icon: const Icon(Icons.ios_share),
-                child: const Text('分享檔案'),
+                label: const Text('分享檔案'),
               ),
             ] else
               const Text('錄音檔將儲存在本機（App 文件目錄）'),
