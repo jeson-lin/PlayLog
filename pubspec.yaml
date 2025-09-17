@@ -17,13 +17,18 @@ dependencies:
   record: ^5.0.4
   path_provider: ^2.1.4
   share_plus: ^10.0.2
-  flutter_fft: ^1.5.0
+  flutter_fft: ^1.0.2+6
   vibration: ^1.8.4
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  flutter_fft:
+    path: packages/flutter_fft
+
 
 flutter:
   uses-material-design: true
