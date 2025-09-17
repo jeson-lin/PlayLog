@@ -14,6 +14,12 @@ dependencies:
   cloud_firestore: ^6.0.1
   firebase_storage: ^13.0.1
   intl: ^0.20.2
+  record: ^5.0.4
+  path_provider: ^2.1.4
+  share_plus: ^10.0.2
+  flutter_fft: ^1.5.0
+  vibration: ^1.8.4
+
 
 dev_dependencies:
   flutter_test:
