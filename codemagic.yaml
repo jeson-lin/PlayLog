@@ -1,0 +1,100 @@
+workflows:
+  android-release:
+    name: PlayLog Android Release
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 17
+      android:
+        build_tools_version: "34.0.0"
+      vars:
+        # === Android signing variables (set these in Codemagic UI -> Environment variables) ===
+        KEYSTORE_PATH: /tmp/keystore.keystore
+        KEYSTORE_PASSWORD: Encrypted(put_in_UI)
+        KEY_ALIAS: playlog
+        KEY_PASSWORD: Encrypted(put_in_UI)
+      cache:
+        cache_paths:
+          - $CM_BUILD_DIR/.pub-cache
+          - $HOME/.gradle/caches
+          - $HOME/.gradle/wrapper
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+    scripts:
+      # 1) Flutter deps
+      - name: Flutter pub get
+        script: |
+          flutter --version
+          flutter pub get
+
+      # 2) (Optional) Bump build number from Git commits count
+      - name: Set build number from commits
+        script: |
+          COUNT=$(git rev-list --count HEAD)
+          echo "Detected build number: $COUNT"
+          /usr/libexec/PlistBuddy -c "Print :version" /dev/null 2>/dev/null || true
+          # Update pubspec.yaml build number
+          python3 - << 'PY'
+          import re, pathlib, sys
+          p = pathlib.Path('pubspec.yaml')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r'(version:\s*\d+\.\d+\.\d\+)(\d+)', lambda m: m.group(1)+str(int(sys.argv[1])), s)
+          p.write_text(s, encoding='utf-8')
+          PY
+          $COUNT
+
+      # 3) Decode keystore from secure environment var ANDROID_KEYSTORE(Base64)
+      - name: Prepare Android keystore
+        script: |
+          if [ -n "$ANDROID_KEYSTORE" ]; then
+            echo "$ANDROID_KEYSTORE" | base64 --decode > "$KEYSTORE_PATH"
+          else
+            echo "WARN: ANDROID_KEYSTORE is not set. Building unsigned artifacts."
+          fi
+
+      # 4) Build AAB & APK
+      - name: Build Android appbundle
+        script: |
+          if [ -f "$KEYSTORE_PATH" ]; then
+            export CM_KEYSTORE_PATH="$KEYSTORE_PATH"
+            export CM_KEYSTORE_PASSWORD="$KEYSTORE_PASSWORD"
+            export CM_KEY_ALIAS="$KEY_ALIAS"
+            export CM_KEY_PASSWORD="$KEY_PASSWORD"
+            flutter build appbundle --release
+          else
+            echo "Building unsigned AAB (no keystore)"
+            flutter build appbundle --release
+          fi
+      - name: Build Android APK
+        script: |
+          if [ -f "$KEYSTORE_PATH" ]; then
+            flutter build apk --release
+          else
+            echo "Building unsigned APK (no keystore)"
+            flutter build apk --release
+          fi
+
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
+      - build/app/outputs/flutter-apk/app-release.apk
+
+  # ----- Optional: iOS Release (requires Apple Developer account & code signing) -----
+  # ios-release:
+  #   name: PlayLog iOS Release
+  #   max_build_duration: 60
+  #   environment:
+  #     flutter: stable
+  #     xcode: latest
+  #     cocoapods: default
+  #   scripts:
+  #     - name: Flutter pub get
+  #       script: flutter pub get
+  #     - name: Build iOS (archive)
+  #       script: flutter build ipa --release --export-options-plist=/tmp/exportOptions.plist
+  #   artifacts:
+  #     - build/ios/ipa/*.ipa
