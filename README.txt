@@ -1,15 +1,27 @@
-PlayLog Firebase Fix Pack
-=========================
-這個壓縮檔包含修正過的 Gradle 與 Firebase 設定檔。
+# PlayLog Patched Package
 
-套用步驟：
-1. 備份你的專案。
-2. 將壓縮檔內容複製到專案相對路徑。
-   - android/build.gradle.kts
-   - android/settings.gradle.kts
-   - android/app/build.gradle.kts
-   - lib/main.dart
-   - lib/firebase_options.dart (暫時檔案，之後用 flutterfire configure 生成)
-   - pubspec.yaml (合併 dependencies 部分，不要覆蓋你的 app 名稱與資產設定)
-3. 放入從 Firebase Console 下載的 google-services.json 到 android/app/。
-4. 執行 flutter clean → flutter pub get → flutter run。
+你可以直接覆蓋到你的專案目錄（或用這份作為新專案骨架）。
+
+## 內容
+- pubspec.yaml（已包含 firebase_core、flutter_riverpod）
+- lib/main.dart（Firebase 初始化 + 錯誤處理 + Riverpod + UI）
+- lib/providers.dart（計時器 + 練習紀錄狀態）
+- lib/firebase_options.dart（使用你上傳的正式檔案）
+
+## 放置方式
+1. 備份你原始專案
+2. 解壓本壓縮檔，將內容覆蓋到你的專案根目錄
+3. 確認 `android/app/google-services.json` 已存在（從 Firebase Console 下載）
+
+## 建置指令
+flutter pub get
+flutter clean
+flutter pub get
+flutter run -d <你的Android裝置ID>
+
+## 常見問題
+- 若遇到 NDK/License：
+  "C:\Android\cmdline-tools\latest\bin\sdkmanager.bat" --licenses
+
+- 若遇到 flutter_fft 的 AndroidManifest 錯誤：
+  刪除該套件 android/src/main/AndroidManifest.xml 裡的 package="com.slins.flutterfft"

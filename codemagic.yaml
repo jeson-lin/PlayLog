@@ -2,38 +2,37 @@ workflows:
   android_debug:
     name: Android Debug APK (Test build)
     max_build_duration: 60
-    instance_type: linux_x2
+    instance_type: mac_mini_m2  # safe on free plans; also works for Android builds
     environment:
       flutter: stable
     scripts:
-      - name: Flutter version
+      - name: Show runner OS and Flutter version
         script: |
+          uname -a || true
+          sw_vers || true
           flutter --version
       - name: Get packages
-        script: |
-          flutter pub get
+        script: flutter pub get
       - name: Build debug APK (auto-signed with debug keystore)
-        script: |
-          flutter build apk --debug
+        script: flutter build apk --debug
     artifacts:
       - build/app/outputs/flutter-apk/app-debug.apk
 
   android_release_nosign:
     name: Android Release APK (unsigned, for size/perf checks)
     max_build_duration: 60
-    instance_type: linux_x2
+    instance_type: mac_mini_m2  # safe on free plans; also works for Android builds
     environment:
       flutter: stable
     scripts:
-      - name: Flutter version
+      - name: Show runner OS and Flutter version
         script: |
+          uname -a || true
+          sw_vers || true
           flutter --version
       - name: Get packages
-        script: |
-          flutter pub get
+        script: flutter pub get
       - name: Build release APK (unsigned)
-        script: |
-          # Note: unsigned release APKs cannot be installed on devices.
-          flutter build apk --release --no-shrink
+        script: flutter build apk --release --no-shrink
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk

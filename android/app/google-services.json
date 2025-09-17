@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "1068625919002",
-    "project_id": "playlog-staging-58d94",
-    "storage_bucket": "playlog-staging-58d94.firebasestorage.app"
+    "project_number": "728844421221",
+    "project_id": "playlog-prod-c6436",
+    "storage_bucket": "playlog-prod-c6436.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1068625919002:android:2ac9261d7ee47836c865a3",
+        "mobilesdk_app_id": "1:728844421221:android:506423dc757a347d81de8c",
+        "android_client_info": {
+          "package_name": "com.example.music_practice_assistant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjZPOQOAl2DxoLHiDY5E4xxBgoGqC5cA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728844421221:android:d722ce76b112d72581de8c",
         "android_client_info": {
           "package_name": "com.example.playlog_fix"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAVplTS8PY6mTB5hQpB6gCZ1dKS_sDSNrk"
+          "current_key": "AIzaSyCjZPOQOAl2DxoLHiDY5E4xxBgoGqC5cA0"
         }
       ],
       "services": {
